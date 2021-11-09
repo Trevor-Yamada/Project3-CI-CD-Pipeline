@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{ title }} - Microblog</title>
+    </head>
+    <body>
+        <h1>Hello, {{ user.username }}!</h1>
+
+        <br>
+
+        <form action="/add" method="post">
+        	<div>
+        		<label for="title">Visitor Log</label>
+        		<input type="text" name="visitor" placeholder="Enter Name">
+        		<button type="submit">Add</button>
+
+        	</div>
+        </form>
+
+        {% for visitor in visitors %}
+        	<p> {{visitor}} </p>
+        	<a href="/remove/{{visitor}}">remove</a>
+        {% endfor %}
+
+
+    </body>
+</html>
