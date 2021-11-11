@@ -1,34 +1,63 @@
-
-
-from flask import Flask,render_template, request, url_for, redirect
-
-import database
-
+from os import name
+from flask import Flask,render_template, request, redirect
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
-visitors = []
-@app.route("/")
-def index():
-    user = {'username' : 'Trevor'}
-    return render_template("base.html",title="home",user=user,visitors = visitors)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tests.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+class Task(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(80), nullable=False)
+	#completed = db.Column(db.Integer, default=0)
+	created_at= db.Column(db.DateTime, nullable=False,default=datetime.now)
+	
+	def __repr__(self):
+		return f'Todo : {self.name}'
 
 
-@app.route("/about")
-def about():
-	return "About us: Naser and the cool kids from CS321"
+@app.route("/", methods =['POST','GET'])
+def home():
+	if request.method == ['POST']:
+		name = request.form['name']
+		new_task = Task(name=name)
+		db.session.add(new_task)
+		db.session.commit()
+		return redirect('/')
+	else:
+		tasks = Task.query.order_by(Task.created_at).all()
+	return render_template("home.html", tasks=tasks)
 
-@app.route("/add", methods=["POST"])
-def add():
-	visitor = request.form.get("visitor")
-	visitors.append(visitor)
-	print(visitors[-1])
+@app.route('/delete/<int:id>')
+def delete(id):
+	task = Task.query.get_or_404(id)
+	
+	try:
+		db.session.delete(task)
+		db.session.commit()
+		return redirect('/')
+	except Exception:
+		return "There was a problem deleting data."
 
-	return redirect(url_for("index"))
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+   task = Task.query.get_or_404(id)
 
-@app.route("/remove/<string:name>")
-def remove(name):
-	visitors.remove(name)
-	return redirect(url_for("index"))
+   if request.method == 'POST':
+       task.name = request.form['name']
+
+       try:
+           db.session.commit()
+           return redirect('/')
+       except:
+           return "There was a problem updating data."
+
+   else:
+       title = "Update Task"
+       return render_template('update.html', title=title, task=task)
+   
+
 
 if __name__ == "__main__":
     app.run(debug=True)
