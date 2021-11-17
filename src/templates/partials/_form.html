@@ -1,14 +1,21 @@
-<form action="/" method="post" class="inline-flex">
+<form action="/" method="post">
     <input
-      class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
       placeholder="Add Todo"
       type="text"
       name="name"
     />
+    <label for ="priority"> Priority:</label>
+      <select id = "priority" name ="priority">
+        <option class="High">High</option>
+        <option class = "Med">Medium</option>
+        <option class = "Low">Low</option>
+      </select>
+    <label for ="completed"></label>
     <button
-      class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal bg-green-600"
+      class="addbutton"
       type="submit"
     >
       Add
     </button>
+    
   </form>

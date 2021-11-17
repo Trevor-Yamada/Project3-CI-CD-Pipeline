@@ -1,32 +1,107 @@
-{% extends "base.html" %} {% block content %}
-<div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
-  <div class="mb-4">
-    <h1 class="text-grey-darkest">TREVIER'S TODO APP</h1>
-    <div class="flex mt-4">
-      {% include "partials/_form.html" %}
-    </div>
+{% extends "base.html" %}
+{% block content %}
+<div>
+  <div class="title">
+    <h1>T and X ToDo App</h1>
+      <div>
+        {% include "partials/_form.html" %}
+      </div>  
   </div>
   <div>
-    {% if tasks %}
-    {% for task in tasks %}
-    <div class="flex mb-4 items-center">
-      <p class="w-full text-grey-darkest">
-        <a href="#">{{ task.name }}</a>
-    </p>
-    
-    <button
-        class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red bg-red-600"
-        href="/delete/{{ task.id }}"
-        >
-        Remove
-        </button>
+    <div>
+      <table style="width:fit-content"  border="4" cellpadding="10">
+        <tr>
+          <th>Task</th>
+          <th>Priority</th>
+          <th>Date Created</th>
+        </tr>
+      </div>
     </div>
-    {% endfor %}
-    {% else %}
+    <div>
+    {% if tasks %}
+      {% for task in tasks %}
+      <p>
+      <div>
+        {% if task.completed == False %}
+          <tr>
+            {% if task.priority == "High" %}
+    
+              <td>{{ task.name }}</td>
+              <td class = "High">{{ task.priority }}</td>
+              <td>{{task.created_at}}</td>
+      
+              {% else %}
+              {% endif %}
+            {% if task.priority == "Medium" %}
 
-    <p class="text-center">No Task to display</p>
+              <td>{{ task.name }}</td>
+              <td class = "Med">{{ task.priority }}</td>
+              <td>{{task.created_at}}</td>
+      
+              {% else %}
+              {% endif %}
 
-    {% endif %}
+            {% if task.priority == "Low" %}
+
+              <td>{{ task.name }}</td>
+              <td class = "Low">{{ task.priority }}</td>
+              <td>{{task.created_at}}</td>
+              {% else %}
+              {% endif %}
+            <td>
+              <button class = 'removeButton'>
+              <a href="/delete/{{ task.id }}">Remove</a>
+              </button>
+            </td>
+            <td>
+              <button class = 'completeButton'>
+              <a href="/complete/{{ task.id }}">Complete</a>
+              </button>
+            </td>
+          </tr>
+      </div>
+    </div>
+        {%else%}
+        {%endif%}
+      {% endfor %}
+      <p>
+        <table style="width:fit-content"  border="4" cellpadding="10">
+          <tr>
+            <th>Completed Task</th>
+            <th>Date Created</th>
+
+          <tr>
+        {% for task in tasks%}
+          <div>
+            <p>
+            {%if task.completed == True%}  
+            <tr>
+              <td>{{task.name}}</td>
+              <td>{{task.created_at}}</td>
+              <td>
+                <button class = 'removeButton'>
+                <a href="/delete/{{ task.id }}">Remove</a>
+                </button>
+              </td>
+              <td>
+                <button class = 'undoButton'>
+                <a href="/complete/{{ task.id }}">Undo</a>
+                </button>
+              </td>
+            </tr>
+              {%else%}
+              {%endif%}
+              {%endfor%}
+        </table>
+        </p>
+        </div>
+    </div>
+  </p>
+  
+  {%else%}
+    <p class="body">No Tasks to display!</p>
+  {% endif %}
+
   </div>
 </div>
 {% endblock content %}

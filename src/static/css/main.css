@@ -1,0 +1,81 @@
+
+
+body,html{
+    margin: 0; 
+    background:white; 
+    color: black; 
+    margin-top: 5px; 
+}
+ 
+.content {
+    color:black;
+    margin: 0 auto;
+    width: 400px;
+
+}
+.task{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: black;
+}
+.dropdown { 
+    display: inline-block;
+    position: relative;
+}
+.title{
+    color:blue;
+    margin: 0 auto;
+    width: 400px;
+    font-family: cursive;
+}
+
+
+.completeButton{
+    transition-duration: 0.4s;
+}
+.completeButton:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+.removeButton{
+    transition-duration: 0.4s;
+}
+.removeButton:hover {
+    background-color: red;
+    color: white;
+}
+.undoButton{
+    transition-duration: 0.4s;
+
+}
+.undoButton:hover{
+    background-color: purple;
+    color: white;
+    
+}
+
+.High{
+    color: red;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.Med{
+    color: orange;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.Low{
+    color:green;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.addbutton{ 
+    color:black;
+    
+}
+.deletebutton{
+    display: inline-flex;
+    color:red;
+    font-family:'Times New Roman', Times, serif;
+
+} 
+.mark{font-size: 30px;} 
