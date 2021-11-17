@@ -46,8 +46,6 @@ def delete(id):
 @app.route('/complete/<int:id>')
 def complete(id):
     task = Task.query.get_or_404(id)
-    print(id)
-    print(task.completed)
     if task.completed == False:
         try:
             task.completed = True
@@ -55,7 +53,7 @@ def complete(id):
             db.session.commit()
             return redirect('/')
         except Exception:
-            return 'could not add'
+            return 'could not Complete'
     else:
         try:
             task.completed = False
@@ -63,12 +61,7 @@ def complete(id):
             db.session.commit()
             return redirect('/')
         except Exception:
-            return 'could not add'
-    #tasks = Task.query.filter(Task.completed==True).all()
-    #print(tasks)
-    
-    #return render_template("home.html", completedTasks = tasks)
-
+            return 'could not Undo'
 
 if __name__ == "__main__":
     app.run(debug=True)

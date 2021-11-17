@@ -7,18 +7,19 @@
         {% include "partials/_form.html" %}
       </div>  
   </div>
-  <div>
-    <div>
-      <table style="width:fit-content"  border="4" cellpadding="10">
-        <tr>
-          <th>Task</th>
-          <th>Priority</th>
-          <th>Date Created</th>
-        </tr>
-      </div>
-    </div>
-    <div>
+  
     {% if tasks %}
+    <div>
+      <div>
+        <table style="width:fit-content"  border="4" cellpadding="10">
+          <tr>
+            <th>Task</th>
+            <th>Priority</th>
+            <th>Date Created</th>
+          </tr>
+        </div>
+      </div>
+      <div>
       {% for task in tasks %}
       <p>
       <div>
